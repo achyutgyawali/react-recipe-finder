@@ -4,6 +4,7 @@ import { RecipeContainer, CoverImage, RecipeName, IngredientText, SeeMoreText } 
 import { useState } from "react";
 import Axios, * as others from 'axios';
 
+
 const APP_ID = "5a62ff99";
 const APP_KEY = "c8960840fc5ee2a0ee8e69232821689b";
 
@@ -21,23 +22,26 @@ justify-content: space-evenly;
 `;
 
 const RecipeComponent = (props) => {
+  const {recipeObj} =props;
   return (
     <RecipeContainer>
-      <CoverImage src="/hamburger.svg" />
-      <RecipeName>MatarPaneer</RecipeName>
+      <CoverImage src={recipeObj.image} />
+      <RecipeName>{recipeObj.label}</RecipeName>
       <IngredientText>Ingredient</IngredientText>
-      <SeeMoreText>See Complete Recipe</SeeMoreText>
+      <SeeMoreText onClick={()=>window.open(recipeObj.url)}>See Complete Recipe</SeeMoreText>
     </RecipeContainer>
   )
 }
 function App() {
   const [timeoutId, updateTimeoutId] = useState();
+  const [recipeList, updateRecipeList] = useState([]);
+
 
   const fetchRecipe = async (searchString) => {
     const response = await Axios.get(
       `https://api.edamam.com/search?q=${searchString}&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
-    console.log(response);
+    updateRecipeList(response.data.hits);
   };
   
 
@@ -66,9 +70,10 @@ function App() {
         <SignUpLink>SignUp</SignUpLink>
       </Header>
       <RecipeListContainer>
-        <RecipeComponent />
-        <RecipeComponent />
-        <RecipeComponent />
+        {recipeList.length && recipeList.map((recipeObj) =>(
+
+        <RecipeComponent recipeObj ={recipeObj.recipe}/>
+        ) )}
       </RecipeListContainer>
     </Container>
   );
