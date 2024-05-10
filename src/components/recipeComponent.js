@@ -35,10 +35,16 @@ color: green;
 text-align: center;
 margin-bottom: 12px;
 border-radius: 20px;
+&:hover {
+    background-color: #FFFFED;
+  }
 `;
 const SeeMoreText = styled(IngredientText)`
 color: #eb3300;
 border: solid 1px #eb3300;
+&:hover {
+    background-color: #FFFFED;
+  }
 `;
 export default{
     RecipeListContainer,

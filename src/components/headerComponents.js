@@ -1,16 +1,4 @@
 import styled from "styled-components";
-export const Header = styled.div`
-color: white;
-background-color: black;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
-padding: 20px;
-font-size: 25px;
-font-weight: bold;
-box-shadow: 0 3px 6px 0 #555;
-`;
 export const AppNameComponent = styled.div`
 display: flex;
 align-items: center;
@@ -41,11 +29,31 @@ font-size: 16px;
 font-weight: bold;
 width: 100%;
 `;
-export const AboutLink = styled.p`
-font-size: 18px;
-color: white;
+export const HeaderContainer = styled.div`
+position: sticky;
+top:0;
+  background-color: #f2f2f2;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
-export const ContactLink = styled(AboutLink)`
+
+export const NavLinks = styled.div`
+  display: flex;
+  gap: 20px;
 `;
-export const SignUpLink = styled(AboutLink)`
+
+export const NavLink = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #007bff;
+  }
 `;

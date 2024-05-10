@@ -1,89 +1,79 @@
 import styled from "styled-components";
 import { DialogTitle, Dialog, DialogContent, DialogActions } from "@material-ui/core";
-import { Header, AppNameComponent, AppIcon, SearchComponent, SearchIcon, SearchInput, AboutLink, SignUpLink, ContactLink } from "./components/headerComponents";
+import { HeaderContainer, AppNameComponent, AppIcon, SearchComponent, SearchIcon, SearchInput,NavLink,NavLinks} from "./components/headerComponents";
+import { CategoryContainer,CategoryButton,CategoryIcon,RecipeListContainer,Placeholder } from "./components/category";
+import { AboutUsContainer,AboutCard,AboutContent,AboutDescription,PersonImage,Heading,Section,Image} from "./components/about";
 import Recipe from "./components/recipeComponent";
-import { useState } from "react";
-import Axios, * as others from 'axios';
-
+import Axios from 'axios';
+import React, { useState, useRef } from "react";
 
 const APP_ID = "5a62ff99";
 const APP_KEY = "c8960840fc5ee2a0ee8e69232821689b";
 
+const categories = [
+  { name: "Breakfast", icon: "/breakfast-icon.svg" },
+  { name: "Lunch", icon: "/kitchen-cooker-utensils-icon.svg" },
+  { name: "Dinner", icon: "/dish-spoon-knife-icon.svg" },
+  { name: "Dessert", icon: "/ice-cream-icon.svg" }
+];
+
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-backgroung-colour : red;
-`;
-const RecipeListContainer = styled.div`
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-padding: 30px;
-gap: 20px;
-justify-content: space-evenly;
-`;
-const Placeholder = styled.div`
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-items: center;
-
+  //background-image: url('/anish.png') ;
+  text-align: center;
 `;
 
-const Footer = styled.div`
-color: white;
-background-color: black;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
-padding: 20px;
-font-size: 25px;
-font-weight: bold;
-box-shadow: 3px 0 0 6px #555;
-height: 40vh;
-`;
-const RecipeComponent = (props) => {
+const RecipeComponent = ({ recipeObj }) => {
   const [show, setShow] = useState(false);
-  const {recipeObj} =props;
+
   return (
     <>
-    <Dialog open={show}>
-    <DialogTitle id="alter-dialog-slide-title">Ingredient</DialogTitle>
-      <DialogContent>
-        <table>
-          <thead>
-            <th>Ingredients</th>
-            <th>Weight</th>
-          </thead>
-          <tbody>
-            {recipeObj.ingredients.map((ingredientObj) =>(
-              <tr>
-              <td>{ingredientObj.text}</td>
-              <td>{ingredientObj.weight}</td>
-            </tr>
-            ))}
-          </tbody>
-        </table>
-      </DialogContent>
-      <DialogActions>
-          <Recipe.IngredientText onClick={() => window.open(recipeObj.url)}>See More</Recipe.IngredientText>
-          <Recipe.SeeMoreText onClick={() => setShow("")}>Close</Recipe.SeeMoreText>
+      <Dialog open={show} style={{borderRadius:20}}>
+        <DialogTitle id="alter-dialog-slide-title">Ingredient</DialogTitle>
+        <DialogContent>
+          <table>
+            <thead>
+              <th>Ingredients</th>
+              <th>Weight</th>
+            </thead>
+            <tbody>
+              {recipeObj.ingredients.map((ingredientObj, index) => (
+                <tr key={index}>
+                  <td>{ingredientObj.text}</td>
+                  <td>{ingredientObj.weight}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DialogContent>
+        <DialogActions>
+          <Recipe.IngredientText onClick={() => window.open(recipeObj.url)}>
+            See More
+          </Recipe.IngredientText>
+          <Recipe.SeeMoreText onClick={() => setShow(false)}>Close</Recipe.SeeMoreText>
         </DialogActions>
-    </Dialog>
-    <Recipe.RecipeContainer>
-      <Recipe.CoverImage src={recipeObj.image} />
-      <Recipe.RecipeName>{recipeObj.label}</Recipe.RecipeName>
-      <Recipe.IngredientText onClick={()=> setShow(true)}>Ingredient</Recipe.IngredientText>
-      <Recipe.SeeMoreText onClick={()=>window.open(recipeObj.url)}>See Complete Recipe</Recipe.SeeMoreText>
-    </Recipe.RecipeContainer>
+      </Dialog>
+      <Recipe.RecipeContainer>
+        <Recipe.CoverImage src={recipeObj.image} />
+        <Recipe.RecipeName>{recipeObj.label}</Recipe.RecipeName>
+        <Recipe.IngredientText onClick={() => setShow(true)}>Ingredient</Recipe.IngredientText>
+        <Recipe.SeeMoreText onClick={() => window.open(recipeObj.url)}>See Complete Recipe</Recipe.SeeMoreText>
+      </Recipe.RecipeContainer>
     </>
-  )
-}
+  );
+};
+
 function App() {
   const [timeoutId, updateTimeoutId] = useState();
   const [recipeList, updateRecipeList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
+  const aboutRef = useRef(null);
+  const teamRef = useRef(null);
+  const signUpRef = useRef(null);
+
+  const scrollToRef = (ref) => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const fetchRecipe = async (searchString) => {
     const response = await Axios.get(
@@ -91,7 +81,6 @@ function App() {
     );
     updateRecipeList(response.data.hits);
   };
-  
 
   const onTextChange = (event) => {
     clearTimeout(timeoutId);
@@ -99,37 +88,95 @@ function App() {
     updateTimeoutId(timeout);
   };
 
+  const filterByCategory = (category) => {
+    setSelectedCategory(category);
+    fetchRecipe(category.toLowerCase());
+  };
+
   return (
-    <Container>
-      <Header>
-        <AppNameComponent>
+    <>
+    <HeaderContainer>
+      <AppNameComponent>
           <AppIcon src="/hamburger.svg" />
-          Recipe Finder
+          <strong style={{fontSize:20}}>Vok Laagyo!!</strong>
         </AppNameComponent>
+      
         <SearchComponent>
           <SearchIcon src="/search-icon.svg" />
-          <SearchInput
-            placeholder="Search Recipe"
-            onChange={onTextChange}
-          />
+          <SearchInput placeholder="Search Recipe" onChange={onTextChange} />
         </SearchComponent>
-        <AboutLink>About</AboutLink>
-        <ContactLink>Contact</ContactLink>
-        <SignUpLink>SignUp</SignUpLink>
-      </Header>
-      <RecipeListContainer>
-        {recipeList.length ? recipeList.map((recipeObj) =>(
+        <NavLinks>
+          <NavLink onClick={() => scrollToRef(aboutRef)}>About</NavLink>
+          <NavLink onClick={() => scrollToRef(teamRef)}>Team</NavLink>
+          <NavLink onClick={() => scrollToRef(signUpRef)}>SignUp</NavLink>
+        </NavLinks>
+      </HeaderContainer>
+    <Container>
+      
+      <h2>Categories</h2><br/>
 
-        <RecipeComponent recipeObj ={recipeObj.recipe}/>
-        ) ): <Placeholder>
-          <h1>Vok-Lagyo-My-Lord</h1>
-          <img src="/hamburger.svg" alt="Description" style={{opacity: 0.2, height: 200, width:200}} ></img>
-          <h2>Your Ultimate Recipe Finder</h2>
-          </Placeholder>}
+      <CategoryContainer>
+        {categories.map((category, index) => (
+          <CategoryButton key={index} onClick={() => filterByCategory(category.name)}>
+            <CategoryIcon src={category.icon} />
+          </CategoryButton>
+        ))}
+      </CategoryContainer>
+
+      <RecipeListContainer>
+        {recipeList.length ? (
+          recipeList.map((recipeObj, index) => (
+            <RecipeComponent key={index} recipeObj={recipeObj.recipe} />
+          ))
+        ) : (
+          <Placeholder>
+          </Placeholder>
+        )}
       </RecipeListContainer>
-      <Footer>
-      </Footer>
+
+
+      <AboutUsContainer>
+          <h1 ref={aboutRef}>About US</h1>
+          <AboutDescription>
+      <Section>
+        <Image src="/bg-image.jpg" />
+        <Heading>This is heading One</Heading>
+      </Section>
+      <Section>
+        <Heading>This is heading Two</Heading>
+        <Image src="/bg-image.jpg" />
+      </Section>
+    </AboutDescription>
+          <br/>
+
+        <h1 ref={teamRef}>Our Team</h1>
+
+        <AboutContent>
+        
+          <AboutCard>
+            <PersonImage src="/bg-image.jpg" alt="Person 1" />
+            <p><strong>Biraj Maharjan</strong></p>
+            <p>Lalitpur,Kathmandu</p>
+            <p>+977-9999999999</p>
+            <p>birajmaharjan@gmail.com</p>
+          </AboutCard>
+          <AboutCard>
+            <PersonImage src="/bg-image.jpg" alt="Person 2" />
+            <p><strong>Achyut Gyawali</strong></p>
+            <p>Bhaktapur,Kathmandu</p>
+            <p>+977-9999999999</p>
+            <p>achyutgyawali777@gmail.com</p>
+          </AboutCard>
+        </AboutContent>
+      </AboutUsContainer>
+
+
+      <div ref={signUpRef}>
+        <h1>SignUp</h1>
+        {/* Your SignUp content goes here */}
+      </div>
     </Container>
+    </>
   );
 }
 
