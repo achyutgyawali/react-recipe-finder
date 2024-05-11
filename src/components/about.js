@@ -8,44 +8,13 @@ export const AboutDescription = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding: 50px 150px 50px;
+  padding: 20px 150px 50px;
   border-radius: 10px;
   margin-bottom: 20px;
   color: black;
-  height: 500px;
+  box-shadow: 0 3px 10px 0 #aaa;
 `;
 
-
-export const Section = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
-
-  @media (min-width: 768px) {
-    margin-bottom: 0;
-  }
-`;
-
-export const Image = styled.img`
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-`;
-
-export const Heading = styled.h1`
-  margin: 0;
-`;
-export const GirlDiv = styled.div`
-  width: 40%;
-`;
-
-export const GuffDiv = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
 
 export const AboutContent = styled.div`
   display: flex;
@@ -54,6 +23,7 @@ export const AboutContent = styled.div`
 `;
 
 export const AboutCard = styled.div`
+background-color:#f2f2f2;
   width: 300px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -63,6 +33,7 @@ export const AboutCard = styled.div`
 `;
 
 export const PersonImage = styled.img`
+border:2px solid black;
   width: 200px;
   border-radius: 50%;
 `;

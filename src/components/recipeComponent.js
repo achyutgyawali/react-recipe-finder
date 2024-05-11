@@ -28,22 +28,22 @@ border-radius: 20px;
 `;
 const IngredientText = styled.span`
 font-size: 18px;
-border: solid 1px green;
+border: solid 1px black;
 cursor: pointer;
 padding: 10px 15px;
-color: green;
+color: black;
 text-align: center;
 margin-bottom: 12px;
 border-radius: 20px;
 &:hover {
-    background-color: #FFFFED;
+    background-color: #FCD667;
   }
 `;
 const SeeMoreText = styled(IngredientText)`
-color: #eb3300;
-border: solid 1px #eb3300;
+color: black;
+border: solid 1px black;
 &:hover {
-    background-color: #FFFFED;
+    background-color: #FCD667;
   }
 `;
 export default{

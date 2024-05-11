@@ -37,6 +37,7 @@ top:0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 3px 10px 0 #aaa;
 `;
 
 export const NavLinks = styled.div`
@@ -54,6 +55,6 @@ export const NavLink = styled.button`
   transition: color 0.3s ease;
 
   &:hover {
-    color: #007bff;
+    color: #FCD667;
   }
 `;
