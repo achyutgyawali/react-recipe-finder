@@ -1,0 +1,19 @@
+.recipe-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 30px;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
+.grid-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 18px;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 40px 0;
+}

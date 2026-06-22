@@ -1,0 +1,65 @@
+.about-container {
+  padding: 30px;
+}
+
+.about-description {
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 150px 50px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: black;
+  box-shadow: 0 3px 10px 0 #aaa;
+}
+
+.about-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.about-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid black;
+  object-fit: cover;
+}
+
+.about-text {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.about-text.left  { text-align: left; }
+.about-text.right { text-align: right; }
+
+.team-title {
+  margin: 30px 0 16px;
+}
+
+.about-content {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.about-card {
+  background-color: #f2f2f2;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 3px 10px 0 #aaa;
+}
+
+.person-image {
+  border: 2px solid black;
+  width: 200px;
+  border-radius: 50%;
+}

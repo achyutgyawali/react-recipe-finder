@@ -1,0 +1,58 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-height: 80vh;
+  overflow-y: auto;
+  min-width: 340px;
+}
+
+.modal-title {
+  margin-bottom: 16px;
+}
+
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-table th,
+.modal-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.modal-table th {
+  font-weight: bold;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-size: 15px;
+  background: white;
+}
+
+.modal-btn:hover {
+  background-color: #fcd667;
+}
